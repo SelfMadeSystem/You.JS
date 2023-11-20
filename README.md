@@ -1,14 +1,14 @@
 
 <h1 align="center">
   <br>
-  <a href="https://github.com/YouAPI/You.JS"><img src="https://raw.githubusercontent.com/YouAPI/You.JS/main/assets/You.JS.png" alt="You.JS Logo" width="200"></a>
+  <a href="https://github.com/YouAPI/You.JS"><img src="./assets/You.JS.png" alt="You.JS Logo" width="200"></a>
   <br>
   <br>
-  You.JS - Deprecated
+  You.JS
   <br>
 </h1>
 
-<h4 align="center">An unofficial JavaScript library for <a href="http://you.com/" target="_blank">you.com</a>.</h4>
+<h4 align="center">An unofficial JavaScript library for <a href="https://api.you.com/" target="_blank">You.com</a>.</h4>
 
 <!-- TODO: Re-add the commented-out stuff but javascriptified -->
 
@@ -32,8 +32,6 @@
   <a href="#license">License</a>
 </p>
 
-> This project is currently unmaintained as You.com does not have an official public API. When they do, development on You.JS will resume, probably at https://github.com/You-OpenSource/You-JS. In the meantime, this project is archived and will be marked as deprecated on NPM.
-
 ## About
 Welcome to the the You.JS Library!
 
@@ -52,91 +50,39 @@ We hope you enjoy using You.JS!
 To install the You.JS library, simply run the following command in your terminal:
 
 ```bash
-npm install youdotjs
+npm install youdotjs # for npm
+yarn add youdotjs # for yarn
+pnpm add youdotjs # for pnpm
+bun install youdotjs # for bun
 ```
 
 > Note: You.JS is named `youdotjs` on npm because `youjs` is already taken and `you.js` is too similar.
 
-You must also download [curl-impersonate](https://github.com/lwthiker/curl-impersonate/releases/latest), put it somewhere, and add an environment variable called `CURL_BINARY` that points to one of the impersonated curl binaries (such as `curl_chrome99` or `curl_ff100`).
-
-> Note: curl-impersonate does not currently work on Windows. If you are on Windows, you can either use WSL or use the [curl-impersonate-win](https://github.com/depler/curl-impersonate-win/releases/latest).
-
-Alternatively, you may also implement the `Fetcher` function yourself to bypass CloudFlare's anti-bot measures. I have taken a shortcut and simply used curl-impersonate, but you may use any method you wish. I will explain more in the <a href="#how-to-use">how to use</a> section.
+> Note: It should work in the browser, but it's not tested.
 
 ## How To Use
 
-### Fetcher
+### Search
 
-The `Fetcher` function is used to create a custom fetcher for the library to use. It is a function that takes a URL and returns a promise that resolves to a string containing the HTML of the page at the given URL. The `curlFetch` function is an example of a fetcher that uses curl-impersonate to bypass CloudFlare's anti-bot measures.
+To search You.com, you can use the `search` function. It takes in a query and returns a `Promise` that resolves to a `SearchResult` object.
 
-It is recommended that you use a fetcher that bypasses CloudFlare's anti-bot measures, as the library will not work without one. However, if you do not want to use a fetcher, you may use the `httpsFetch` function, which uses the `https` module to fetch the page. However, this will not bypass CloudFlare's anti-bot measures, so the library will not work.
+```javascript
+const you = require('youdotjs');
 
-#### Using a Fetcher
+const API_TOKEN = 'Put your API token here';
 
-The `Fetcher` function takes one or two arguments. The first argument is the URL to fetch. The second argument is an optional object containing options for the fetcher. It returns a promise that resolves to a `FetcherResponse` object.
-
-> TODO: Add documentation for all objects
-
-The `Fetcher` is defined as follows:
-
-```ts
-type Fetcher = (url: string, options?: FetcherOptions) => Promise<FetcherResponse>;
-```
-
-The `FetcherOptions` object is defined as follows:
-
-```ts
-interface FetcherOptions {
-  headers?: { [key: string]: string };
-  rawHeaders?: string[]; // [key, value, key, value, ...]
-  method?: string;
-  body?: string;
-  timeout?: number;
-}
-```
-
-The `FetcherResponse` object is defined as follows:
-
-```ts
-interface FetcherResponse  {
-  status: number | undefined;
-  statusText: string | undefined;
-  headers: { [key: string]: string };
-  rawHeaders: string[];
-  body: string;
-}
-```
-
-To use, for example, `httpsFetch`, you would do the following:
-
-```ts
-import { httpsFetch } from 'youdotjs';
-
-httpsFetch('https://example.com').then((response) => {
-  console.log(response.body);
-}).catch((error) => {
-  console.error(error);
+you.search('Hello world!', API_TOKEN).then((result) => {
+  console.log(result);
 });
 ```
 
-#### curlFetch
-
-To use the `curlFetch` function, you must first download [curl-impersonate](https://github.com/lwthiker/curl-impersonate/releases/latest), put it somewhere, and add an environment variable called `CURL_BINARY` that points to one of the impersonated curl binaries (such as `curl_chrome99` or `curl_ff100`).
-
-> Note: curl-impersonate does not currently work on Windows. If you are on Windows, you can either use WSL or use the [curl-impersonate-win](https://github.com/depler/curl-impersonate-win/releases/latest).
-
-### Search
-
-> TODO: Add documentation for search
-
-For now, you can see the [Search.ts](src/lib/search/Search.ts) file for documentation. (I'm originally a Java developer, so this is why all the files are CamelCase.)
-
 ### YouChat
 
-Currently not implemented because CloudFlare's restrictions on the YouChat API are too strict.
+Currently not implemented.
 
 ## Discord
-We also have an active [Discord server](https://discord.gg/SD7wZMFSvV) where you can chat with developers and get help with using the library. Our Discord community is a great place to ask questions, share your projects, and get feedback from other developers.
+
+You.com has an official Discord server! Join it [here](https://you.club). Don't expect to get any support for this library there, though.
 
 ## License
 

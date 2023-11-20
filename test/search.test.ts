@@ -1,27 +1,31 @@
-import { search, streamingSearch, curlFetch } from '../src/index';
+import { search, SearchResponse } from '../src';
+import fetch from 'cross-fetch';
+jest.mock('cross-fetch');
 
-test('search', async () => {
-  const response = await search(curlFetch, {
-    q: 'test',
-    page: 1,
-    count: 10,
-    safeSearch: 'Off',
-    onShoppingPage: false,
-    responseFilter: 'WebPages',
-    domain: 'search',
-  });
-  expect(response).toBeDefined();
-});
+describe('search', () => {
+  it('returns search results', async () => {
+    // Define the mock result
+    const mockResult: SearchResponse = {
+      hits: [
+        {
+          description: 'mock description',
+          snippets: ['mock snippet'],
+          title: 'mock title',
+          url: 'mock url',
+        },
+      ],
+      latency: 123,
+    };
 
-test('streamingSearch', async () => {
-  const response = await streamingSearch(curlFetch, {
-    q: 'test',
-    page: 1,
-    count: 10,
-    safeSearch: 'Off',
-    onShoppingPage: false,
-    responseFilter: 'WebPages',
-    domain: 'search',
+    // Mock the fetch function
+    (fetch as jest.MockedFunction<typeof fetch>).mockResolvedValue({
+      ok: true,
+      json: () => Promise.resolve(mockResult),
+    } as Response);
+
+    const result = await search('test', 'test-key');
+
+    // Expect the result to be the mock result
+    expect(result).toEqual(mockResult);
   });
-  expect(response).toBeDefined();
 });
