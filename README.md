@@ -1,7 +1,7 @@
 
 <h1 align="center">
   <br>
-  <a href="https://github.com/YouAPI/You.JS"><img src="./assets/You.JS.png" alt="You.JS Logo" width="200"></a>
+  <a href="https://github.com/SelfMadeSystem/You.JS"><img src="https://raw.githubusercontent.com/SelfMadeSystem/You.JS/main/assets/You.JS.png" alt="You.JS Logo" width="200"></a>
   <br>
   <br>
   You.JS
