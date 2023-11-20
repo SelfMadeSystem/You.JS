@@ -1,4 +1,4 @@
-import { search } from "you.js";
+import { search } from "youdotjs";
 import "dotenv/config";
 
 const echo = console.log.bind(console); // I can't be arsed to type console.log

@@ -30,16 +30,16 @@
         "singleQuote": true,
         "trailingComma": "es5"
     },
-    "name": "you.js",
+    "name": "youdotjs",
     "author": "SelfMadeSystem",
-    "module": "dist/you.js.esm.js",
+    "module": "dist/youdotjs.esm.js",
     "size-limit": [
         {
-            "path": "dist/you.js.cjs.production.min.js",
+            "path": "dist/youdotjs.cjs.production.min.js",
             "limit": "10 KB"
         },
         {
-            "path": "dist/you.js.esm.js",
+            "path": "dist/youdotjs.esm.js",
             "limit": "10 KB"
         }
     ],
